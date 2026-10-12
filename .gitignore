@@ -1,0 +1,19 @@
+# Build output
+.build/
+build/
+dist/
+*.xcodeproj
+.swiftpm/
+.DS_Store
+
+# Never commit credentials (the app reads Claude Code's token at runtime only)
+.credentials.json
+**/.credentials.json
+*.env
+.env*
+*.p12
+*.cer
+*.pem
+*.key
+*.mobileprovision
+*.provisionprofile
