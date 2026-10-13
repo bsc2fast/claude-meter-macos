@@ -19,10 +19,12 @@ curl -fsSL https://raw.githubusercontent.com/bsc2fast/claude-meter-macos/main/sc
 
 **Option 2: download**
 
-Download [ClaudeMeter.zip](https://github.com/bsc2fast/claude-meter-macos/releases/latest/download/ClaudeMeter.zip),
-unzip it and move `ClaudeMeter.app` to Applications. The build isn't notarized, so the first
+Download [ClaudeMeter.dmg](https://github.com/bsc2fast/claude-meter-macos/releases/latest/download/ClaudeMeter.dmg),
+open it and drag **ClaudeMeter** into **Applications**. The build isn't notarized, so the first
 time you open it macOS will refuse. Go to **System Settings → Privacy & Security** and click
 **Open Anyway**, or run `xattr -dr com.apple.quarantine /Applications/ClaudeMeter.app`.
+
+Download page: https://aimeter.sankhacooray.com
 
 ## How it gets data
 
@@ -41,7 +43,8 @@ Requires macOS 14+ and Xcode 15+ command line tools.
 ```sh
 scripts/build-app.sh            # → build/ClaudeMeter.app
 scripts/build-app.sh --install  # also copies to /Applications and launches
-scripts/build-app.sh --zip      # packs dist/ClaudeMeter.zip for a release
+scripts/build-app.sh --zip      # packs dist/ClaudeMeter.zip (used by install.sh)
+scripts/build-app.sh --dmg      # packs dist/ClaudeMeter.dmg (drag-to-Applications)
 ```
 
 macOS adds new menu bar items on the left. To move it next to battery/Wi-Fi,

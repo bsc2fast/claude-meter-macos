@@ -1,6 +1,6 @@
 #!/bin/sh
 # Builds build/ClaudeMeter.app (menu-bar only, ad-hoc signed).
-# Usage: scripts/build-app.sh [--install | --zip]   (--install copies to /Applications, --zip packs dist/ClaudeMeter.zip)
+# Usage: scripts/build-app.sh [--install | --zip | --dmg]   (--install copies to /Applications; --zip / --dmg pack into dist/)
 set -eu
 cd "$(dirname "$0")/.."
 
@@ -47,4 +47,15 @@ if [ "${1:-}" = "--zip" ]; then
   rm -f dist/ClaudeMeter.zip
   ditto -c -k --keepParent "$APP" dist/ClaudeMeter.zip
   echo "Packed dist/ClaudeMeter.zip"
+fi
+
+if [ "${1:-}" = "--dmg" ]; then
+  mkdir -p dist
+  STAGE="$(mktemp -d)"
+  cp -R "$APP" "$STAGE/"
+  ln -s /Applications "$STAGE/Applications"
+  rm -f dist/ClaudeMeter.dmg
+  hdiutil create -volname "Claude Meter" -srcfolder "$STAGE" -ov -format UDZO dist/ClaudeMeter.dmg >/dev/null
+  rm -rf "$STAGE"
+  echo "Packed dist/ClaudeMeter.dmg"
 fi
